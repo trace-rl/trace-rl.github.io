@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JZDTTMP2TL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JZDTTMP2TL');
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
@@ -228,10 +237,30 @@
         <div class="wrap">
           <div>
             <div class="logos" aria-label="Venue and affiliations">
-              <a href="https://neurips.cc/"><img src="static/images/logos/neurips.svg" alt="NeurIPS" width="600" height="269" class="logos__neurips"></a>
+              <a href="https://neurips.cc/"
+                ><img
+                  src="static/images/logos/neurips.svg"
+                  alt="NeurIPS"
+                  width="600"
+                  height="269"
+                  class="logos__neurips"
+              /></a>
               <div class="logos__orgs">
-                <a href="https://www.uky.edu/"><img src="static/images/logos/uky.png" alt="University of Kentucky" width="460" height="352"></a>
-                <a href="https://washu.edu/"><img src="static/images/logos/washu.png" alt="Washington University in St. Louis" width="300" height="300" class="logos__seal"></a>
+                <a href="https://www.uky.edu/"
+                  ><img
+                    src="static/images/logos/uky.png"
+                    alt="University of Kentucky"
+                    width="460"
+                    height="352"
+                /></a>
+                <a href="https://washu.edu/"
+                  ><img
+                    src="static/images/logos/washu.png"
+                    alt="Washington University in St. Louis"
+                    width="300"
+                    height="300"
+                    class="logos__seal"
+                /></a>
               </div>
             </div>
             <h1 class="title">
@@ -475,18 +504,146 @@
             </p>
           </div>
           <figure class="fig">
-            <div class="fig__plate">
-              <img
-                src="static/images/reconstruction_seq_003.jpg"
-                width="2270"
-                height="627"
-                loading="lazy"
-                alt="Eight consecutive ground-truth frames from a PPO trajectory in a kitchen scene, above TRACE's reconstructions; layout, walls, ceiling and lighting are recovered and every action matches."
-              />
+            <div
+              class="frames frames--rec"
+              role="table"
+              aria-label="Ground truth and TRACE reconstructions"
+            >
+              <div class="frames__row frames__head" role="row">
+                <span role="columnheader"></span
+                ><span role="columnheader"><b>t = 0</b>MoveAhead</span
+                ><span role="columnheader"><b>t = 1</b>LookUp</span
+                ><span role="columnheader"><b>t = 2</b>RotateLeft</span
+                ><span role="columnheader"><b>t = 3</b>LookUp</span
+                ><span role="columnheader"><b>t = 4</b>LookUp</span
+                ><span role="columnheader"><b>t = 5</b>RotateLeft</span
+                ><span role="columnheader"><b>t = 6</b>LookUp</span
+                ><span role="columnheader"><b>t = 7</b>MoveAhead</span>
+              </div>
+              <div class="frames__row" role="row">
+                <span class="frames__label" role="rowheader">Ground truth</span
+                ><img
+                  role="cell"
+                  src="static/images/frames/rec-gt-0.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-gt-1.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-gt-2.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-gt-3.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-gt-4.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-gt-5.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-gt-6.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-gt-7.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                />
+              </div>
+              <div class="frames__row" role="row">
+                <span class="frames__label" role="rowheader">TRACE</span
+                ><img
+                  role="cell"
+                  src="static/images/frames/rec-trace-0.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-trace-1.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-trace-2.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-trace-3.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-trace-4.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-trace-5.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-trace-6.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/rec-trace-7.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                />
+              </div>
             </div>
             <figcaption>
               Ground truth (top) and TRACE reconstructions (bottom) over T = 8
-              PPO steps. Every action label matches.
+              PPO steps. TRACE recovers every action, shown under each step.
             </figcaption>
           </figure>
 
@@ -700,14 +857,323 @@
             </p>
           </div>
           <figure class="fig">
-            <div class="fig__plate">
-              <img
-                src="static/images/defense_reconstruction_grid.jpg"
-                width="2899"
-                height="1809"
-                loading="lazy"
-                alt="Grid of eight trajectory steps: ground truth, then TRACE reconstructions under no defense, 50% pruning, Gaussian noise sigma 0.01, and DP-SGD. The first three defenses look nearly identical to no defense; DP-SGD produces unrecognizable blobs."
-              />
+            <div
+              class="frames frames--def"
+              role="table"
+              aria-label="Reconstructions under each defense"
+            >
+              <div class="frames__row frames__head" role="row">
+                <span role="columnheader"></span
+                ><span role="columnheader"><b>t = 1</b></span
+                ><span role="columnheader"><b>t = 2</b></span
+                ><span role="columnheader"><b>t = 3</b></span
+                ><span role="columnheader"><b>t = 4</b></span
+                ><span role="columnheader"><b>t = 5</b></span
+                ><span role="columnheader"><b>t = 6</b></span
+                ><span role="columnheader"><b>t = 7</b></span
+                ><span role="columnheader"><b>t = 8</b></span>
+              </div>
+              <div class="frames__row" role="row">
+                <span class="frames__label" role="rowheader">Ground truth</span
+                ><img
+                  role="cell"
+                  src="static/images/frames/def-gt-0.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-gt-1.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-gt-2.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-gt-3.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-gt-4.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-gt-5.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-gt-6.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-gt-7.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                />
+              </div>
+              <div class="frames__row" role="row">
+                <span class="frames__label" role="rowheader">No defense</span
+                ><img
+                  role="cell"
+                  src="static/images/frames/def-none-0.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-none-1.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-none-2.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-none-3.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-none-4.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-none-5.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-none-6.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-none-7.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                />
+              </div>
+              <div class="frames__row" role="row">
+                <span class="frames__label" role="rowheader">Pruning 50%</span
+                ><img
+                  role="cell"
+                  src="static/images/frames/def-prune-0.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-prune-1.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-prune-2.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-prune-3.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-prune-4.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-prune-5.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-prune-6.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-prune-7.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                />
+              </div>
+              <div class="frames__row" role="row">
+                <span class="frames__label" role="rowheader"
+                  >Noise σ = 0.01</span
+                ><img
+                  role="cell"
+                  src="static/images/frames/def-noise-0.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-noise-1.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-noise-2.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-noise-3.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-noise-4.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-noise-5.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-noise-6.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-noise-7.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                />
+              </div>
+              <div class="frames__row" role="row">
+                <span class="frames__label" role="rowheader">DP-SGD</span
+                ><img
+                  role="cell"
+                  src="static/images/frames/def-dpsgd-0.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-dpsgd-1.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-dpsgd-2.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-dpsgd-3.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-dpsgd-4.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-dpsgd-5.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-dpsgd-6.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                /><img
+                  role="cell"
+                  src="static/images/frames/def-dpsgd-7.jpg"
+                  width="192"
+                  height="192"
+                  loading="lazy"
+                  alt=""
+                />
+              </div>
             </div>
             <figcaption>
               The same trajectory under no defense, 50% pruning, noise σ = 0.01,
