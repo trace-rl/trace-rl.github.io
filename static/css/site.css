@@ -72,6 +72,7 @@ sup { font: 400 .68em/0 var(--mono); color: var(--fg-3); margin-left: 1px; }
 .i-sun { display: none; }
 :root[data-theme="light"] .i-sun { display: block; }
 :root[data-theme="light"] .i-moon { display: none; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .i-sun { display: block; } :root:not([data-theme="dark"]) .i-moon { display: none; } }
 @media (max-width: 720px) { .nav__links { display: none; } .nav__in > .icon-btn { margin-left: auto; } }
 
 /* Intro */

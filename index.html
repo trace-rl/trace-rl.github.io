@@ -177,9 +177,15 @@
     <link rel="stylesheet" href="static/css/site.css" />
     <script>
       (function () {
+        // A manual theme only holds while the OS theme is the one it was chosen under
+        var sys = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
         var t = null;
         try {
           t = localStorage.getItem("trace-theme");
+          if (localStorage.getItem("trace-theme-os") !== sys) {
+            localStorage.removeItem("trace-theme");
+            t = null;
+          }
         } catch (e) {}
         if (t === "light" || t === "dark")
           document.documentElement.setAttribute("data-theme", t);
@@ -1551,19 +1557,33 @@
         });
       }
 
+      var systemTheme = matchMedia("(prefers-color-scheme: light)");
+      function setOverride(t) {
+        var root = document.documentElement;
+        if (t) root.setAttribute("data-theme", t);
+        else root.removeAttribute("data-theme");
+        try {
+          if (t) {
+            localStorage.setItem("trace-theme", t);
+            localStorage.setItem("trace-theme-os", systemTheme.matches ? "light" : "dark");
+          } else localStorage.removeItem("trace-theme");
+        } catch (e) {}
+      }
+
       document.getElementById("theme").addEventListener("click", function () {
         var root = document.documentElement;
         var cur =
           root.getAttribute("data-theme") ||
-          (matchMedia("(prefers-color-scheme: light)").matches
-            ? "light"
-            : "dark");
+          (systemTheme.matches ? "light" : "dark");
         var next = cur === "light" ? "dark" : "light";
-        root.setAttribute("data-theme", next);
         track("toggle_theme", { theme: next });
-        try {
-          localStorage.setItem("trace-theme", next);
-        } catch (e) {}
+        // Picking the system theme drops the override, so the page follows the OS again
+        setOverride(next === (systemTheme.matches ? "light" : "dark") ? null : next);
+      });
+
+      // Follow the OS: when the system theme changes, any manual override is cleared
+      systemTheme.addEventListener("change", function () {
+        setOverride(null);
       });
 
       document.querySelectorAll("[data-tabs]").forEach(function (list) {
