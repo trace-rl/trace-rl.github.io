@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JZDTTMP2TL"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JVWY0M0REH"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-JZDTTMP2TL');
+      gtag('config', 'G-JVWY0M0REH');
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -1519,6 +1519,16 @@
     </footer>
 
     <script>
+      // GA events for on-page interactions (outbound links are tracked by enhanced measurement)
+      function track(name, params) {
+        if (typeof gtag === "function") gtag("event", name, params || {});
+      }
+
+      document.addEventListener("click", function (e) {
+        var a = e.target.closest('a[href^="#"]');
+        if (a) track("nav_click", { section: a.getAttribute("href").slice(1) || "top" });
+      });
+
       document.getElementById("theme").addEventListener("click", function () {
         var root = document.documentElement;
         var cur =
@@ -1528,6 +1538,7 @@
             : "dark");
         var next = cur === "light" ? "dark" : "light";
         root.setAttribute("data-theme", next);
+        track("toggle_theme", { theme: next });
         try {
           localStorage.setItem("trace-theme", next);
         } catch (e) {}
@@ -1546,11 +1557,13 @@
             .forEach(function (t) {
               t.hidden = t.dataset.k !== b.dataset.k;
             });
+          track("select_tab", { table: id, tab: b.dataset.k });
         });
       });
 
       document.getElementById("copy").addEventListener("click", function () {
         var btn = this;
+        track("copy_bibtex");
         navigator.clipboard
           .writeText(document.getElementById("bib").textContent)
           .then(function () {
