@@ -106,7 +106,7 @@
         "image": "https://trace-gia.github.io/static/images/og.png",
         "sameAs": [
           "https://arxiv.org/abs/2609.30258",
-          "https://github.com/trace-gia/TRACE"
+          "https://github.com/sudip-bhujel/TRACE"
         ],
         "keywords": [
           "gradient inversion",
@@ -315,7 +315,7 @@
                   <path d="M4 6h16M4 12h16M4 18h10" /></svg
                 >arXiv</a
               > -->
-              <a class="btn" href="https://github.com/trace-gia/TRACE">
+              <a class="btn" href="https://github.com/sudip-bhujel/TRACE">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -1527,7 +1527,29 @@
       document.addEventListener("click", function (e) {
         var a = e.target.closest('a[href^="#"]');
         if (a) track("nav_click", { section: a.getAttribute("href").slice(1) || "top" });
+
+        // Paper/Code CTAs: arXiv PDF URL has no .pdf extension, so enhanced measurement misses the download
+        var x = e.target.closest('a[href*="arxiv.org/pdf"], a[href*="/TRACE"]');
+        if (!x) return;
+        var where = x.closest("footer") ? "footer" : "intro";
+        if (x.href.indexOf("arxiv.org/pdf") > -1)
+          track("file_download", { file_name: "TRACE.pdf", link_url: x.href, location: where });
+        else track("view_code", { link_url: x.href, location: where });
       });
+
+      // Section reach: fires once per section as it scrolls into view
+      if ("IntersectionObserver" in window) {
+        var seen = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (!en.isIntersecting) return;
+            track("view_section", { section: en.target.id });
+            seen.unobserve(en.target);
+          });
+        }, { rootMargin: "0px 0px -30% 0px" });
+        document.querySelectorAll("main section[id]:not(#top)").forEach(function (s) {
+          seen.observe(s);
+        });
+      }
 
       document.getElementById("theme").addEventListener("click", function () {
         var root = document.documentElement;
