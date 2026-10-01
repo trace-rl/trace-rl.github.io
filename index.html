@@ -1,0 +1,1092 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      TRACE: Temporal Gradient Inversion in Embodied RL (NeurIPS 2026)
+    </title>
+    <meta
+      name="description"
+      content="TRACE is an amortized temporal gradient-inversion attack that reconstructs private observation-action trajectories from per-step policy gradients in embodied reinforcement learning. NeurIPS 2026."
+    />
+    <meta
+      name="keywords"
+      content="gradient inversion, gradient leakage, privacy attack, federated learning, distributed reinforcement learning, embodied AI, trajectory reconstruction, TRACE, NeurIPS 2026"
+    />
+    <meta
+      name="author"
+      content="Sudip Bhujel, Shanghao Shi, Ruiquan Huang, Ning Zhang, Yang Xiao"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://trace-gia.github.io/" />
+    <meta
+      name="theme-color"
+      content="#050505"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="theme-color"
+      content="#E8E8E8"
+      media="(prefers-color-scheme: light)"
+    />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TRACE" />
+    <meta property="og:url" content="https://trace-gia.github.io/" />
+    <meta
+      property="og:title"
+      content="TRACE: Temporal Gradient Inversion for Private Trajectory Reconstruction in Embodied RL"
+    />
+    <meta
+      property="og:description"
+      content="Per-step policy gradients leak the trajectory. TRACE reconstructs what an embodied agent saw and did, at 3–4.5 ms per frame. NeurIPS 2026."
+    />
+    <meta
+      property="og:image"
+      content="https://trace-gia.github.io/static/images/og.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Single-frame gradient inversion versus TRACE, which reconstructs the whole trajectory through a causal transformer."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="TRACE: Temporal Gradient Inversion in Embodied RL"
+    />
+    <meta
+      name="twitter:description"
+      content="Per-step policy gradients leak the trajectory. TRACE reconstructs what an embodied agent saw and did. NeurIPS 2026."
+    />
+    <meta
+      name="twitter:image"
+      content="https://trace-gia.github.io/static/images/og.png"
+    />
+
+    <!-- Google Scholar -->
+    <meta
+      name="citation_title"
+      content="Temporal Gradient Inversion for Private Trajectory Reconstruction in Embodied Reinforcement Learning"
+    />
+    <meta name="citation_author" content="Bhujel, Sudip" />
+    <meta name="citation_author" content="Shi, Shanghao" />
+    <meta name="citation_author" content="Huang, Ruiquan" />
+    <meta name="citation_author" content="Zhang, Ning" />
+    <meta name="citation_author" content="Xiao, Yang" />
+    <meta name="citation_publication_date" content="2026" />
+    <meta
+      name="citation_conference_title"
+      content="Advances in Neural Information Processing Systems (NeurIPS)"
+    />
+    <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2609.30258" />
+    <meta name="citation_arxiv_id" content="2609.30258" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ScholarlyArticle",
+        "headline": "Temporal Gradient Inversion for Private Trajectory Reconstruction in Embodied Reinforcement Learning",
+        "alternativeHeadline": "TRACE: Temporal Reconstruction Attack on Consecutive Encodings",
+        "abstract": "TRACE is an amortized temporal gradient-inversion attack that autoregressively reconstructs private observation-action trajectories from per-step policy-learning gradients in embodied reinforcement learning.",
+        "datePublished": "2026",
+        "url": "https://trace-gia.github.io/",
+        "image": "https://trace-gia.github.io/static/images/og.png",
+        "sameAs": [
+          "https://arxiv.org/abs/2609.30258",
+          "https://github.com/trace-gia/TRACE"
+        ],
+        "keywords": [
+          "gradient inversion",
+          "gradient leakage",
+          "embodied reinforcement learning",
+          "privacy",
+          "trajectory reconstruction"
+        ],
+        "isPartOf": { "@type": "PublicationEvent", "name": "NeurIPS 2026" },
+        "author": [
+          {
+            "@type": "Person",
+            "name": "Sudip Bhujel",
+            "url": "https://sudipbhujel.com.np/",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "University of Kentucky"
+            }
+          },
+          {
+            "@type": "Person",
+            "name": "Shanghao Shi",
+            "url": "https://shishishi123.github.io/",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "Washington University in St. Louis"
+            }
+          },
+          {
+            "@type": "Person",
+            "name": "Ruiquan Huang",
+            "url": "https://ruiquan5514.github.io/",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "University of Kentucky"
+            }
+          },
+          {
+            "@type": "Person",
+            "name": "Ning Zhang",
+            "url": "https://engineering.washu.edu/faculty/Ning-Zhang.html",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "Washington University in St. Louis"
+            }
+          },
+          {
+            "@type": "Person",
+            "name": "Yang Xiao",
+            "url": "https://yang-sec.github.io/yang/index.html",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "University of Kentucky"
+            }
+          }
+        ]
+      }
+    </script>
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" href="static/images/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="static/images/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500&family=Atkinson+Hyperlegible+Next:wght@300;400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="static/css/site.css" />
+    <script>
+      (function () {
+        var t = null;
+        try {
+          t = localStorage.getItem("trace-theme");
+        } catch (e) {}
+        if (t === "light" || t === "dark")
+          document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="nav">
+      <div class="wrap nav__in">
+        <a class="nav__brand" href="#top">TRACE</a>
+        <nav class="nav__links" aria-label="Sections">
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#generality">Generality</a>
+          <a href="#defenses">Defenses</a>
+          <a href="#cite">Cite</a>
+        </nav>
+        <button
+          class="icon-btn"
+          id="theme"
+          type="button"
+          aria-label="Toggle color theme"
+        >
+          <svg
+            class="i-moon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+          <svg
+            class="i-sun"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="intro" id="top">
+        <div class="wrap">
+          <div>
+            <h1 class="title">
+              <b>TRACE:</b> Temporal Gradient Inversion for Private Trajectory
+              Reconstruction in Embodied Reinforcement Learning
+            </h1>
+            <div class="authors">
+              <a href="https://sudipbhujel.com.np/">Sudip Bhujel<sup>1</sup></a>
+              <a href="https://shishishi123.github.io/"
+                >Shanghao Shi<sup>2</sup></a
+              >
+              <a href="https://ruiquan5514.github.io/"
+                >Ruiquan Huang<sup>1</sup></a
+              >
+              <a href="https://engineering.washu.edu/faculty/Ning-Zhang.html"
+                >Ning Zhang<sup>2</sup></a
+              >
+              <a href="https://yang-sec.github.io/yang/index.html"
+                >Yang Xiao<sup>1</sup></a
+              >
+            </div>
+            <div class="affil">
+              <span><sup>1</sup> University of Kentucky</span>
+              <span><sup>2</sup> Washington University in St. Louis</span>
+            </div>
+            <div class="venue">
+              <span class="pill">NeurIPS 2026</span><span>Main Track</span>
+            </div>
+            <div class="btns">
+              <a class="btn" href="https://arxiv.org/pdf/2609.30258">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"
+                  />
+                  <path d="M14 3v5h5M9 13h6M9 17h6" /></svg
+                >Paper</a
+              >
+              <!-- <a class="btn" href="https://arxiv.org/abs/2609.30258">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  aria-hidden="true"
+                >
+                  <path d="M4 6h16M4 12h16M4 18h10" /></svg
+                >arXiv</a
+              > -->
+              <a class="btn" href="https://github.com/trace-gia/TRACE">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  aria-hidden="true"
+                >
+                  <path d="m8 7-5 5 5 5M16 7l5 5-5 5" /></svg
+                >Code</a
+              >
+              <a class="btn" href="#cite">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M7 7h4v4H7zM7 11c0 3-1 5-3 6M15 7h4v4h-4zM15 11c0 3-1 5-3 6"
+                  /></svg
+                >BibTeX</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap hero">
+        <figure class="fig">
+          <div class="split">
+            <div class="fig__plate fig__plate--diagram">
+              <img
+                src="static/images/hero.png"
+                width="1087"
+                height="472"
+                alt="Prior single-frame attacks invert each gradient independently and lose scene structure. TRACE passes gradient tokens through a causal transformer with visual history, so each reconstruction carries context from the previous one."
+              />
+            </div>
+            <div class="fig__plate fig__plate--diagram">
+              <img
+                src="static/images/temporal_gain_teaser.png"
+                width="800"
+                height="593"
+                alt="Schematic: as sequence length grows, pixel error falls and reconstruction fidelity rises relative to a single-frame attack."
+              />
+            </div>
+          </div>
+          <figcaption>
+            Single-frame attacks treat each gradient on its own. TRACE reads the
+            gradient stream as a sequence, so every step inherits context from
+            the last, and reconstruction gets better the longer the trajectory
+            runs.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="stats" role="list">
+            <div class="stat" role="listitem">
+              <div class="stat__v">18.8<small>dB</small></div>
+              <div class="stat__l">PSNR on held-out scenes</div>
+            </div>
+            <div class="stat" role="listitem">
+              <div class="stat__v">100<small>%</small></div>
+              <div class="stat__l">Action accuracy, PPO and A2C</div>
+            </div>
+            <div class="stat" role="listitem">
+              <div class="stat__v">3–4.5<small>ms</small></div>
+              <div class="stat__l">Per reconstructed frame</div>
+            </div>
+            <div class="stat" role="listitem">
+              <div class="stat__v">&gt;6,900×</div>
+              <div class="stat__l">Faster than DLG and IG</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="abstract">
+        <div class="wrap abstract">
+          <div class="kicker">Abstract</div>
+          <p>
+            Distributed learning in embodied reinforcement-learning agents
+            offers a degree of privacy by retaining raw sensor data on-device
+            and transmitting only policy gradients to the server. Yet temporal
+            structure can amplify this leakage beyond single-frame attacks. We
+            introduce <strong>T</strong>emporal <strong>R</strong>econstruction
+            <strong>A</strong>ttack on <strong>C</strong>onsecutive
+            <strong>E</strong>ncodings (<strong>TRACE</strong>), an amortized
+            temporal gradient-inversion attack that autoregressively
+            reconstructs the sequence of private observation-action trajectories
+            from per-step policy-learning gradients.
+          </p>
+          <p>
+            The attack exploits two structural signals ignored by prior
+            single-frame methods: (i) cross-time correlation between successive
+            embodied gradients, which we formalize via a conditional
+            mutual-information bound, and (ii) closed-form action recovery from
+            policy-head gradient structure, which we prove exact when standard
+            entropy regularization is sufficiently small. On held-out embodied
+            scenes, TRACE reaches 18.8 dB PSNR with near-perfect action recovery
+            at 3–4.5 ms per reconstructed frame, dominating the learning-based
+            baseline across all reconstruction metrics and exceeding
+            optimization attacks while running orders of magnitude faster.
+          </p>
+          <p>
+            Further evaluation demonstrates TRACE's broader applicability across
+            recurrent, residual, and compact transformer victim architectures,
+            multi-modal inputs, and larger discrete action spaces. Defense
+            experiments suggest that protecting temporal gradient streams may
+            require sequence-aware privacy mechanisms.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="method">
+        <div class="wrap">
+          <div class="section__head">
+            <div class="kicker">Method</div>
+            <h2>One gradient in, one frame and one action out</h2>
+            <p>
+              A trained inverter reads the gradient stream step by step. No
+              per-sample optimization, so attacking a new trajectory is a single
+              forward pass.
+            </p>
+          </div>
+          <figure class="fig">
+            <div class="fig__plate fig__plate--diagram">
+              <img
+                src="static/images/sys-diagram.png"
+                width="1942"
+                height="967"
+                loading="lazy"
+                alt="TRACE pipeline: a gradient encoder compresses each gradient to a latent, an image encoder embeds prior observations, a causal temporal transformer contextualizes the interleaved sequence, and a residual decoder reconstructs the observation and predicts the action."
+              />
+            </div>
+            <figcaption>
+              The gradient encoder compresses each per-step gradient to a latent
+              and the image encoder embeds earlier reconstructions. A causal
+              temporal transformer contextualizes the interleaved sequence, and
+              a residual decoder emits the observation and action for each step.
+            </figcaption>
+          </figure>
+          <div class="cards" style="margin-top: 20px">
+            <div class="card">
+              <div class="kicker">Signal 1</div>
+              <h3>Cross-time correlation</h3>
+              <p>
+                Successive embodied gradients share information about the scene.
+                We bound what the past adds about the present with a conditional
+                mutual-information argument.
+              </p>
+            </div>
+            <div class="card">
+              <div class="kicker">Signal 2</div>
+              <h3>Closed-form action recovery</h3>
+              <p>
+                The policy-head gradient gives the action away directly.
+                Recovery is provably exact when entropy regularization is small
+                enough.
+              </p>
+            </div>
+            <div class="card">
+              <div class="kicker">Training</div>
+              <h3>Autoregressive, exposure-aware</h3>
+              <p>
+                The inverter conditions on its own previous reconstructions,
+                trained so that errors do not compound over long rollouts.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="results">
+        <div class="wrap">
+          <div class="section__head">
+            <div class="kicker">Results</div>
+            <h2>What the agent saw, recovered from its gradients</h2>
+            <p>
+              Point-goal navigation in AI2-THOR. The victim sees 84×84 RGB
+              frames and picks one of five actions; the attacker only sees
+              per-step policy gradients.
+            </p>
+          </div>
+          <figure class="fig">
+            <div class="fig__plate">
+              <img
+                src="static/images/reconstruction_seq_003.jpg"
+                width="2270"
+                height="627"
+                loading="lazy"
+                alt="Eight consecutive ground-truth frames from a PPO trajectory in a kitchen scene, above TRACE's reconstructions; layout, walls, ceiling and lighting are recovered and every action matches."
+              />
+            </div>
+            <figcaption>
+              Ground truth (top) and TRACE reconstructions (bottom) over T = 8
+              PPO steps. Every action label matches.
+            </figcaption>
+          </figure>
+
+          <div style="margin-top: 40px">
+            <div
+              class="tabs"
+              role="tablist"
+              aria-label="Victim algorithm"
+              data-tabs="base"
+            >
+              <button role="tab" aria-selected="true" data-k="ppo">PPO</button>
+              <button role="tab" aria-selected="false" data-k="a2c">A2C</button>
+            </div>
+            <div class="tbl">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>MSE ↓</th>
+                    <th>PSNR ↑</th>
+                    <th>SSIM ↑</th>
+                    <th>LPIPS ↓</th>
+                    <th>Act. Acc. ↑</th>
+                    <th>Time / frame</th>
+                  </tr>
+                </thead>
+                <tbody data-tab="base" data-k="ppo">
+                  <tr>
+                    <td>DLG</td>
+                    <td>0.289</td>
+                    <td>5.47</td>
+                    <td>0.043</td>
+                    <td>1.224</td>
+                    <td>16.6%</td>
+                    <td>31.0 s</td>
+                  </tr>
+                  <tr>
+                    <td>Inverting Gradients</td>
+                    <td>0.161</td>
+                    <td>8.73</td>
+                    <td>0.166</td>
+                    <td>0.766</td>
+                    <td>31.5%</td>
+                    <td>39.3 s</td>
+                  </tr>
+                  <tr>
+                    <td>Learning to Invert</td>
+                    <td>0.023</td>
+                    <td>16.79</td>
+                    <td>0.529</td>
+                    <td>0.671</td>
+                    <td class="best">100%</td>
+                    <td>1.2 ms</td>
+                  </tr>
+                  <tr class="ours">
+                    <td>TRACE</td>
+                    <td class="best">0.014</td>
+                    <td class="best">18.77</td>
+                    <td class="best">0.627</td>
+                    <td class="best">0.362</td>
+                    <td class="best">100%</td>
+                    <td>4.5 ms</td>
+                  </tr>
+                </tbody>
+                <tbody data-tab="base" data-k="a2c" hidden>
+                  <tr>
+                    <td>DLG</td>
+                    <td>0.259</td>
+                    <td>6.11</td>
+                    <td>0.036</td>
+                    <td>1.184</td>
+                    <td>51.0%</td>
+                    <td>76.1 s</td>
+                  </tr>
+                  <tr>
+                    <td>Inverting Gradients</td>
+                    <td>0.114</td>
+                    <td>9.51</td>
+                    <td>0.093</td>
+                    <td>0.686</td>
+                    <td>32.5%</td>
+                    <td>39.6 s</td>
+                  </tr>
+                  <tr>
+                    <td>Learning to Invert</td>
+                    <td>0.018</td>
+                    <td>17.65</td>
+                    <td>0.508</td>
+                    <td>0.639</td>
+                    <td class="best">100%</td>
+                    <td>0.2 ms</td>
+                  </tr>
+                  <tr class="ours">
+                    <td>TRACE</td>
+                    <td class="best">0.014</td>
+                    <td class="best">18.87</td>
+                    <td class="best">0.583</td>
+                    <td class="best">0.358</td>
+                    <td class="best">100%</td>
+                    <td>3.0 ms</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">
+              Baselines are adapted from supervised classification with an
+              actor-critic surrogate loss. PSNR in dB. Means over held-out
+              sequences; standard deviations are in the paper.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="generality">
+        <div class="wrap">
+          <div class="section__head">
+            <div class="kicker">Generality</div>
+            <h2>Not tied to one victim network</h2>
+            <p>
+              Each PPO victim gets its own separately trained attacker, with no
+              data augmentation. <em>K</em> is the number of actions.
+            </p>
+          </div>
+          <div class="tbl">
+            <table>
+              <thead>
+                <tr>
+                  <th>Victim</th>
+                  <th><em>K</em></th>
+                  <th>MSE ↓</th>
+                  <th>PSNR ↑</th>
+                  <th>SSIM ↑</th>
+                  <th>LPIPS ↓</th>
+                  <th>Act. Acc. ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CNN</td>
+                  <td>10</td>
+                  <td>0.013</td>
+                  <td>18.92</td>
+                  <td>0.610</td>
+                  <td>0.372</td>
+                  <td>99.5%</td>
+                </tr>
+                <tr>
+                  <td>Tiny ViT</td>
+                  <td>5</td>
+                  <td>0.048</td>
+                  <td>13.99</td>
+                  <td>0.456</td>
+                  <td>0.543</td>
+                  <td>99.0%</td>
+                </tr>
+                <tr>
+                  <td>IMPALA-style CNN</td>
+                  <td>5</td>
+                  <td>0.007</td>
+                  <td>21.85</td>
+                  <td>0.725</td>
+                  <td>0.244</td>
+                  <td>97.4%</td>
+                </tr>
+                <tr>
+                  <td>Wider IMPALA CNN</td>
+                  <td>5</td>
+                  <td class="best">0.007</td>
+                  <td class="best">22.36</td>
+                  <td class="best">0.773</td>
+                  <td class="best">0.208</td>
+                  <td>98.5%</td>
+                </tr>
+                <tr>
+                  <td>CNN + GRU</td>
+                  <td>5</td>
+                  <td>0.015</td>
+                  <td>18.62</td>
+                  <td>0.565</td>
+                  <td>0.390</td>
+                  <td>97.5%</td>
+                </tr>
+                <tr>
+                  <td>Multi-modal CNN</td>
+                  <td>5</td>
+                  <td>0.011</td>
+                  <td>19.78</td>
+                  <td>0.697</td>
+                  <td>0.335</td>
+                  <td>97.4%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">
+            More capacity does not protect the victim: the wider IMPALA network
+            gives the best reconstructions. Action recovery stays above 97%
+            across every architecture.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="defenses">
+        <div class="wrap">
+          <div class="section__head">
+            <div class="kicker">Defenses</div>
+            <h2>Per-step defenses barely slow it down</h2>
+            <p>
+              Pruning and light noise leave the reconstruction almost untouched.
+              Only aggressive quantization, strong noise and DP-SGD break it.
+            </p>
+          </div>
+          <figure class="fig">
+            <div class="fig__plate">
+              <img
+                src="static/images/defense_reconstruction_grid.jpg"
+                width="2899"
+                height="1809"
+                loading="lazy"
+                alt="Grid of eight trajectory steps: ground truth, then TRACE reconstructions under no defense, 50% pruning, Gaussian noise sigma 0.01, and DP-SGD. The first three defenses look nearly identical to no defense; DP-SGD produces unrecognizable blobs."
+              />
+            </div>
+            <figcaption>
+              The same trajectory under no defense, 50% pruning, noise σ = 0.01,
+              and DP-SGD (C = 1.0, σ = 1.0).
+            </figcaption>
+          </figure>
+
+          <div style="margin-top: 40px">
+            <div
+              class="tabs"
+              role="tablist"
+              aria-label="Victim algorithm"
+              data-tabs="def"
+            >
+              <button role="tab" aria-selected="true" data-k="ppo">PPO</button>
+              <button role="tab" aria-selected="false" data-k="a2c">A2C</button>
+            </div>
+            <div class="tbl">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Defense</th>
+                    <th>Setting</th>
+                    <th>MSE ↓</th>
+                    <th>PSNR ↑</th>
+                    <th>SSIM ↑</th>
+                    <th>LPIPS ↓</th>
+                    <th>Act. Acc. ↑</th>
+                  </tr>
+                </thead>
+                <tbody data-tab="def" data-k="ppo">
+                  <tr>
+                    <td>No defense</td>
+                    <td>—</td>
+                    <td>0.018</td>
+                    <td>18.9</td>
+                    <td>0.628</td>
+                    <td>0.374</td>
+                    <td>99.9%</td>
+                  </tr>
+                  <tr class="group">
+                    <td colspan="7">Quantization</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>8-bit</td>
+                    <td>0.020</td>
+                    <td>18.5</td>
+                    <td>0.619</td>
+                    <td>0.384</td>
+                    <td>99.9%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>4-bit</td>
+                    <td>0.075</td>
+                    <td class="drop">12.4</td>
+                    <td>0.422</td>
+                    <td>0.645</td>
+                    <td class="drop">37.9%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>2-bit</td>
+                    <td>0.091</td>
+                    <td class="drop">11.3</td>
+                    <td>0.380</td>
+                    <td>0.689</td>
+                    <td class="drop">19.4%</td>
+                  </tr>
+                  <tr class="group">
+                    <td colspan="7">Pruning (keep %)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>90%</td>
+                    <td>0.018</td>
+                    <td>18.9</td>
+                    <td>0.628</td>
+                    <td>0.374</td>
+                    <td>99.9%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>50%</td>
+                    <td>0.018</td>
+                    <td>18.9</td>
+                    <td>0.628</td>
+                    <td>0.374</td>
+                    <td>99.9%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>10%</td>
+                    <td>0.018</td>
+                    <td>18.8</td>
+                    <td>0.624</td>
+                    <td>0.371</td>
+                    <td>99.9%</td>
+                  </tr>
+                  <tr class="group">
+                    <td colspan="7">Gaussian noise (σ)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>0.001</td>
+                    <td>0.018</td>
+                    <td>18.8</td>
+                    <td>0.626</td>
+                    <td>0.376</td>
+                    <td>99.8%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>0.01</td>
+                    <td>0.023</td>
+                    <td>18.1</td>
+                    <td>0.599</td>
+                    <td>0.401</td>
+                    <td>94.9%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>0.1</td>
+                    <td>0.049</td>
+                    <td class="drop">14.2</td>
+                    <td>0.438</td>
+                    <td>0.572</td>
+                    <td class="drop">59.9%</td>
+                  </tr>
+                  <tr class="group">
+                    <td colspan="7">DP-SGD (ε, δ = 10⁻⁵)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ε = 10</td>
+                    <td>0.069</td>
+                    <td class="drop">12.2</td>
+                    <td>0.345</td>
+                    <td>0.658</td>
+                    <td class="drop">21.4%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ε = 5</td>
+                    <td>0.069</td>
+                    <td class="drop">12.1</td>
+                    <td>0.342</td>
+                    <td>0.663</td>
+                    <td class="drop">21.4%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ε = 1</td>
+                    <td>0.071</td>
+                    <td class="drop">12.0</td>
+                    <td>0.346</td>
+                    <td>0.658</td>
+                    <td class="drop">17.6%</td>
+                  </tr>
+                </tbody>
+                <tbody data-tab="def" data-k="a2c" hidden>
+                  <tr>
+                    <td>No defense</td>
+                    <td>—</td>
+                    <td>0.015</td>
+                    <td>18.4</td>
+                    <td>0.530</td>
+                    <td>0.373</td>
+                    <td>99.1%</td>
+                  </tr>
+                  <tr class="group">
+                    <td colspan="7">Quantization</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>8-bit</td>
+                    <td>0.016</td>
+                    <td>18.4</td>
+                    <td>0.529</td>
+                    <td>0.374</td>
+                    <td>98.3%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>4-bit</td>
+                    <td>0.057</td>
+                    <td class="drop">13.3</td>
+                    <td>0.428</td>
+                    <td>0.556</td>
+                    <td class="drop">50.2%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>2-bit</td>
+                    <td>0.078</td>
+                    <td class="drop">11.5</td>
+                    <td>0.404</td>
+                    <td>0.653</td>
+                    <td class="drop">41.4%</td>
+                  </tr>
+                  <tr class="group">
+                    <td colspan="7">Pruning (keep %)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>90%</td>
+                    <td>0.015</td>
+                    <td>18.4</td>
+                    <td>0.530</td>
+                    <td>0.373</td>
+                    <td>99.1%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>50%</td>
+                    <td>0.015</td>
+                    <td>18.4</td>
+                    <td>0.530</td>
+                    <td>0.373</td>
+                    <td>99.1%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>10%</td>
+                    <td>0.017</td>
+                    <td>18.0</td>
+                    <td>0.517</td>
+                    <td>0.383</td>
+                    <td>89.0%</td>
+                  </tr>
+                  <tr class="group">
+                    <td colspan="7">Gaussian noise (σ)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>0.001</td>
+                    <td>0.015</td>
+                    <td>18.4</td>
+                    <td>0.530</td>
+                    <td>0.373</td>
+                    <td>98.8%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>0.01</td>
+                    <td>0.016</td>
+                    <td>18.3</td>
+                    <td>0.525</td>
+                    <td>0.377</td>
+                    <td>96.2%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>0.1</td>
+                    <td>0.026</td>
+                    <td>16.5</td>
+                    <td>0.452</td>
+                    <td>0.440</td>
+                    <td class="drop">64.1%</td>
+                  </tr>
+                  <tr class="group">
+                    <td colspan="7">DP-SGD (ε, δ = 10⁻⁵)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ε = 10</td>
+                    <td>0.050</td>
+                    <td class="drop">13.3</td>
+                    <td>0.322</td>
+                    <td>0.563</td>
+                    <td class="drop">27.4%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ε = 5</td>
+                    <td>0.050</td>
+                    <td class="drop">13.2</td>
+                    <td>0.319</td>
+                    <td>0.559</td>
+                    <td class="drop">23.7%</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ε = 1</td>
+                    <td>0.049</td>
+                    <td class="drop">13.3</td>
+                    <td>0.322</td>
+                    <td>0.562</td>
+                    <td class="drop">24.5%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">
+              Highlighted cells mark settings where the attack clearly degrades.
+              Protecting a gradient stream likely needs sequence-aware privacy
+              mechanisms rather than per-step perturbation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="cite">
+        <div class="wrap cite">
+          <div class="section__head" style="margin-bottom: 0">
+            <div class="kicker">Cite</div>
+            <h2>BibTeX</h2>
+          </div>
+          <pre id="bib">
+@inproceedings{bhujel2026trace,
+  title         = {Temporal Gradient Inversion for Private Trajectory Reconstruction in Embodied Reinforcement Learning},
+  author        = {Bhujel, Sudip and Shi, Shanghao and Huang, Ruiquan and Zhang, Ning and Xiao, Yang},
+  booktitle     = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year          = {2026},
+  eprint        = {2609.30258},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG},
+  url           = {https://trace-gia.github.io/}
+}</pre
+          >
+          <div class="cite__row">
+            <button class="btn" type="button" id="copy">Copy BibTeX</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap foot__grid">
+        <span
+          >TRACE · University of Kentucky &amp; Washington University in St.
+          Louis</span
+        >
+        <nav class="foot__links" aria-label="Project links">
+          <a href="https://arxiv.org/pdf/2609.30258">Paper</a>
+          <!-- <a href="https://arxiv.org/abs/2609.30258">arXiv</a>
+              -->
+          <a href="https://github.com/trace-gia/TRACE">Code</a>
+          <a href="https://github.com/trace-gia">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("theme").addEventListener("click", function () {
+        var root = document.documentElement;
+        var cur =
+          root.getAttribute("data-theme") ||
+          (matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark");
+        var next = cur === "light" ? "dark" : "light";
+        root.setAttribute("data-theme", next);
+        try {
+          localStorage.setItem("trace-theme", next);
+        } catch (e) {}
+      });
+
+      document.querySelectorAll("[data-tabs]").forEach(function (list) {
+        var id = list.dataset.tabs;
+        list.addEventListener("click", function (e) {
+          var b = e.target.closest("button");
+          if (!b) return;
+          list.querySelectorAll("button").forEach(function (x) {
+            x.setAttribute("aria-selected", x === b);
+          });
+          document
+            .querySelectorAll('tbody[data-tab="' + id + '"]')
+            .forEach(function (t) {
+              t.hidden = t.dataset.k !== b.dataset.k;
+            });
+        });
+      });
+
+      document.getElementById("copy").addEventListener("click", function () {
+        var btn = this;
+        navigator.clipboard
+          .writeText(document.getElementById("bib").textContent)
+          .then(function () {
+            btn.textContent = "Copied";
+            setTimeout(function () {
+              btn.textContent = "Copy BibTeX";
+            }, 1500);
+          });
+      });
+    </script>
+  </body>
+</html>
