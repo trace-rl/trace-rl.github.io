@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://trace-gia.github.io/sitemap.xml
+Sitemap: https://trace-rl.github.io/sitemap.xml
