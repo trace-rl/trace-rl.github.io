@@ -77,7 +77,7 @@ sup { font: 400 .68em/0 var(--mono); color: var(--fg-3); margin-left: 1px; }
 
 /* Intro */
 .intro { padding-top: clamp(24px, 4vh, 48px); }
-.title { font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.05; font-weight: 300; letter-spacing: -.024em; max-width: 48ch; margin-bottom: 18px; }
+.title { font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.05; font-weight: 300; letter-spacing: -.024em; margin-bottom: 18px; }
 .title b { font-weight: 500; }
 .authors { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 16px; }
 .authors a { text-decoration-color: var(--line-2); }
