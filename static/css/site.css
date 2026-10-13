@@ -1,12 +1,12 @@
 /* TRACE project page. One foreground and one background per theme, hairlines,
- * pills, and a single teal accent taken from the TRACE figures. */
+ * pills, and a single blue accent. */
 
 :root {
   --bg: #050505; --bg-2: #0F0F0F;
   --fg: #F4F4F4; --fg-2: #A8A8A8; --fg-3: #7E7E7E;
   --line: rgba(255,255,255,.1); --line-2: rgba(255,255,255,.22);
   --hover: rgba(255,255,255,.045);
-  --accent: #5FD3AE; --accent-ink: #04140E; --accent-soft: rgba(95,211,174,.14);
+  --accent: #69A7FF; --accent-ink: #061426; --accent-soft: rgba(105,167,255,.14);
   --bad: #F2849A;
   --plate: #F2F2F2; --fig-filter: brightness(.94);
   --diagram-filter: invert(1) hue-rotate(180deg); --diagram-line: transparent;
@@ -23,7 +23,7 @@
   --fg: #161616; --fg-2: #404040; --fg-3: #5C5C5C;
   --line: rgba(0,0,0,.1); --line-2: rgba(0,0,0,.22);
   --hover: rgba(0,0,0,.035);
-  --accent: #0E7F5E; --accent-ink: #FFFFFF; --accent-soft: rgba(14,127,94,.1);
+  --accent: #245FC2; --accent-ink: #FFFFFF; --accent-soft: rgba(36,95,194,.1);
   --bad: #B8314F;
   --plate: #F7F7F7; --fig-filter: none;
   --diagram-filter: none; --diagram-line: var(--line);
@@ -34,7 +34,7 @@
   :root:not([data-theme="dark"]) {
     --bg: #E8E8E8; --bg-2: #F0F0F0; --fg: #161616; --fg-2: #404040; --fg-3: #5C5C5C;
     --line: rgba(0,0,0,.1); --line-2: rgba(0,0,0,.22); --hover: rgba(0,0,0,.035);
-    --accent: #0E7F5E; --accent-ink: #FFFFFF; --accent-soft: rgba(14,127,94,.1);
+    --accent: #245FC2; --accent-ink: #FFFFFF; --accent-soft: rgba(36,95,194,.1);
     --bad: #B8314F; --plate: #F7F7F7; --fig-filter: none; --diagram-filter: none; --diagram-line: var(--line); --logo-filter: none; color-scheme: light;
   }
 }
@@ -102,7 +102,8 @@ sup { font: 400 .68em/0 var(--mono); color: var(--fg-3); margin-left: 1px; }
 .hero { padding-top: clamp(24px, 3vh, 36px); }
 .section__head { max-width: 640px; margin-bottom: 28px; }
 .kicker { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
-.section h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.1; font-weight: 300; letter-spacing: -.02em; }
+.section h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.1; font-weight: 300; letter-spacing: -.02em; margin-bottom: 14px; }
+.section__head h3 { font-size: 18px; line-height: 1.35; font-weight: 300; letter-spacing: -.02em; }
 .section__head p { margin-top: 10px; color: var(--fg-2); font-size: 15.5px; }
 .fig { margin: 0; }
 .fig__plate { background: var(--plate); border-radius: 14px; padding: clamp(12px, 2.4vw, 28px); border: 1px solid var(--line); }
