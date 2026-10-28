@@ -2,18 +2,24 @@
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JVWY0M0REH"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-JVWY0M0REH"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'G-JVWY0M0REH');
+      gtag("config", "G-JVWY0M0REH");
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
-      TRACE: Temporal Gradient Inversion in Embodied RL (NeurIPS 2026)
+      Temporal Gradient Inversion for Private Trajectory Reconstruction in
+      Embodied Reinforcement Learning (NeurIPS 2026)
     </title>
     <meta
       name="description"
@@ -65,7 +71,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="TRACE: Temporal Gradient Inversion in Embodied RL"
+      content="Temporal Gradient Inversion for Private Trajectory Reconstruction in Embodied Reinforcement Learning"
     />
     <meta
       name="twitter:description"
@@ -178,7 +184,9 @@
     <script>
       (function () {
         // A manual theme only holds while the OS theme is the one it was chosen under
-        var sys = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        var sys = matchMedia("(prefers-color-scheme: light)").matches
+          ? "light"
+          : "dark";
         var t = null;
         try {
           t = localStorage.getItem("trace-theme");
@@ -270,8 +278,8 @@
               </div>
             </div>
             <h1 class="title">
-              <b>TRACE:</b> Temporal Gradient Inversion for Private Trajectory
-              Reconstruction in Embodied Reinforcement Learning
+              Temporal Gradient Inversion for Private Trajectory Reconstruction
+              in Embodied Reinforcement Learning
             </h1>
             <div class="authors">
               <a href="https://sudipbhujel.com.np/">Sudip Bhujel<sup>1</sup></a>
@@ -296,7 +304,10 @@
               <span class="pill">NeurIPS 2026</span><span>Main Track</span>
             </div>
             <div class="btns">
-              <a class="btn" href="https://sudipbhujel.com.np/r/trace-pdf?src=trace-rl-github-io">
+              <a
+                class="btn"
+                href="https://sudipbhujel.com.np/r/trace-pdf?src=trace-rl-github-io"
+              >
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -321,7 +332,10 @@
                   <path d="M4 6h16M4 12h16M4 18h10" /></svg
                 >arXiv</a
               > -->
-              <a class="btn" href="https://sudipbhujel.com.np/r/trace-code?src=trace-rl-github-io">
+              <a
+                class="btn"
+                href="https://sudipbhujel.com.np/r/trace-code?src=trace-rl-github-io"
+              >
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -1515,11 +1529,20 @@
           Louis</span
         >
         <nav class="foot__links" aria-label="Project links">
-          <a href="https://sudipbhujel.com.np/r/trace-pdf?src=trace-rl-github-io">Paper</a>
+          <a
+            href="https://sudipbhujel.com.np/r/trace-pdf?src=trace-rl-github-io"
+            >Paper</a
+          >
           <!-- <a href="https://sudipbhujel.com.np/r/trace-pdf">arXiv</a>
               -->
-          <a href="https://sudipbhujel.com.np/r/trace-code?src=trace-rl-github-io">Code</a>
-          <a href="https://sudipbhujel.com.np/r/trace-code?src=trace-rl-github-io">GitHub</a>
+          <a
+            href="https://sudipbhujel.com.np/r/trace-code?src=trace-rl-github-io"
+            >Code</a
+          >
+          <a
+            href="https://sudipbhujel.com.np/r/trace-code?src=trace-rl-github-io"
+            >GitHub</a
+          >
         </nav>
       </div>
     </footer>
@@ -1532,29 +1555,41 @@
 
       document.addEventListener("click", function (e) {
         var a = e.target.closest('a[href^="#"]');
-        if (a) track("nav_click", { section: a.getAttribute("href").slice(1) || "top" });
+        if (a)
+          track("nav_click", {
+            section: a.getAttribute("href").slice(1) || "top",
+          });
 
         // Paper/Code CTAs: arXiv PDF URL has no .pdf extension, so enhanced measurement misses the download
         var x = e.target.closest('a[href*="arxiv.org/pdf"], a[href*="/TRACE"]');
         if (!x) return;
         var where = x.closest("footer") ? "footer" : "intro";
         if (x.href.indexOf("arxiv.org/pdf") > -1)
-          track("file_download", { file_name: "TRACE.pdf", link_url: x.href, location: where });
+          track("file_download", {
+            file_name: "TRACE.pdf",
+            link_url: x.href,
+            location: where,
+          });
         else track("view_code", { link_url: x.href, location: where });
       });
 
       // Section reach: fires once per section as it scrolls into view
       if ("IntersectionObserver" in window) {
-        var seen = new IntersectionObserver(function (entries) {
-          entries.forEach(function (en) {
-            if (!en.isIntersecting) return;
-            track("view_section", { section: en.target.id });
-            seen.unobserve(en.target);
+        var seen = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (en) {
+              if (!en.isIntersecting) return;
+              track("view_section", { section: en.target.id });
+              seen.unobserve(en.target);
+            });
+          },
+          { rootMargin: "0px 0px -30% 0px" },
+        );
+        document
+          .querySelectorAll("main section[id]:not(#top)")
+          .forEach(function (s) {
+            seen.observe(s);
           });
-        }, { rootMargin: "0px 0px -30% 0px" });
-        document.querySelectorAll("main section[id]:not(#top)").forEach(function (s) {
-          seen.observe(s);
-        });
       }
 
       var systemTheme = matchMedia("(prefers-color-scheme: light)");
@@ -1565,7 +1600,10 @@
         try {
           if (t) {
             localStorage.setItem("trace-theme", t);
-            localStorage.setItem("trace-theme-os", systemTheme.matches ? "light" : "dark");
+            localStorage.setItem(
+              "trace-theme-os",
+              systemTheme.matches ? "light" : "dark",
+            );
           } else localStorage.removeItem("trace-theme");
         } catch (e) {}
       }
@@ -1578,7 +1616,9 @@
         var next = cur === "light" ? "dark" : "light";
         track("toggle_theme", { theme: next });
         // Picking the system theme drops the override, so the page follows the OS again
-        setOverride(next === (systemTheme.matches ? "light" : "dark") ? null : next);
+        setOverride(
+          next === (systemTheme.matches ? "light" : "dark") ? null : next,
+        );
       });
 
       // Follow the OS: when the system theme changes, any manual override is cleared
